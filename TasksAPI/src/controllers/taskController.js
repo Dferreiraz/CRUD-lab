@@ -51,6 +51,12 @@ const createTask = (req, res) => {
         })
     }
 
+    const validStatuses = ['pending', 'in_progress', 'completed']
+    if (!validStatuses.includes(status)) {
+        return res.status(400).json({
+            message: 'Status inválido. Use: pending, in_progress ou completed'
+        })
+    }
 
     const newTask = {
         id: String(tasks.length + 1),
@@ -58,14 +64,7 @@ const createTask = (req, res) => {
         description,
         status,
         priority,
-        createdAT: new Date().toISOString
-    }
-
-    const validStatuses = ['pending', 'in_progress', 'completed']
-    if (!validStatuses.includes(status)) {
-        return res.status(400).json({
-            message: 'Status inválido. Use: pending, in_progress ou completed'
-        })
+        createdAt: new Date().toISOString()
     }
 
     tasks.push(newTask)
@@ -75,7 +74,7 @@ const createTask = (req, res) => {
 
 const updateTask = (req, res) => {
     const id = req.params.id
-    const { title, description, status, priority} = req.body
+    const { title, description, status, priority } = req.body
 
     const taskIndex = tasks.findIndex(doc => doc.id === id)
 
@@ -90,7 +89,7 @@ const updateTask = (req, res) => {
         title,
         description,
         status,
-        priority,
+        priority
     }
 
     res.status(200).json({
@@ -112,7 +111,7 @@ const deleteTask = (req, res) => {
     tasks.splice(taskIndex, 1)
 
     res.status(200).json({
-        message: 'Task deletada com sucesso'
+        message: 'Task deletado com sucesso'
     })
 }
 

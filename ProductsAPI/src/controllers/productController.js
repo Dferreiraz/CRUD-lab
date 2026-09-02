@@ -90,7 +90,6 @@ const createProduct = (req, res) => {
 
 const updateProduct = (req, res) => {
     const id = req.params.id 
-    const { name, price, stock, isActive, category } = req.body
     
     const productIndex = products.findIndex(doc => doc.id === id)
 
@@ -100,17 +99,15 @@ const updateProduct = (req, res) => {
         })
     }
 
-    products[productIndex] = { // Corrigido: products (com s)
-        ...products[productIndex],
-        name,
-        price,
-        stock,
-        isActive,
-        category
-    }
+    const camposParaAtualizar = Object.keys(req.body)
+
+    camposParaAtualizar.forEach(campo => {
+        products[productIndex][campo] = req.body[campo]
+    })
 
     res.status(200).json({
-        message: 'Produto atualizado com sucesso'
+        message: 'Produto atualizado com sucesso',
+        product: products[productIndex] 
     })
 }
 

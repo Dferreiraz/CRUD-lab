@@ -1,4 +1,4 @@
-# 🚀 Crud Lab
+# 🚀 CRUD Lab
 
 > Laboratório de estudos Back-End para desenvolvimento de **APIs REST com Node.js e Express**, evoluindo de CRUDs simples em memória até APIs com persistência em banco de dados SQLite.
 
